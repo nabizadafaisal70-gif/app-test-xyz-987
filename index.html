@@ -1,0 +1,1311 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Nabizada Vocabulary Hub</title>
+<style>
+:root{
+  --blue:#0ea5e9; --blue-deep:#0369a1; --gold:#f59e0b; --soft:#e0f2fe; --gold-soft:#fef3c7;
+  --bg:#F2F2F7; --card:#FFFFFF; --text:#0f172a; --muted:#64748b; --line:rgba(60,60,67,.12); --line-2:rgba(60,60,67,.22);
+  --glass:rgba(255,255,255,.62); --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.04);
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#000; --card:#1c1c1e; --text:#f5f5f7; --muted:#98989f; --line:rgba(255,255,255,.1); --line-2:rgba(255,255,255,.18);
+  --soft:rgba(14,165,233,.16); --gold-soft:rgba(245,158,11,.16); --glass:rgba(44,44,48,.6);
+  --shadow:0 0 0 .5px rgba(255,255,255,.06),0 10px 26px rgba(0,0,0,.5); color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#000; --card:#1c1c1e; --text:#f5f5f7; --muted:#98989f; --line:rgba(255,255,255,.1); --line-2:rgba(255,255,255,.18);
+    --soft:rgba(14,165,233,.16); --gold-soft:rgba(245,158,11,.16); --glass:rgba(44,44,48,.6);
+    --shadow:0 0 0 .5px rgba(255,255,255,.06),0 10px 26px rgba(0,0,0,.5); color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.6;min-height:100vh;min-height:100dvh;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));-webkit-tap-highlight-color:transparent;transition:background .3s,color .3s}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;cursor:pointer}
+h1,h2,h3,p{margin:0}
+svg.i{width:22px;height:22px;display:block;flex-shrink:0}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:8px}
+.glow{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(70vw 45vh at 0% -10%,rgba(14,165,233,.14),transparent 60%),radial-gradient(60vw 40vh at 100% 0%,rgba(245,158,11,.10),transparent 60%)}
+.glass{background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border:1px solid var(--line)}
+.app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding-block:76px 150px}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:50%;transform:translateX(-50%);width:min(100%,760px);height:60px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;border-width:0 0 1px;border-radius:0 0 22px 22px}
+.brand{display:flex;align-items:center;gap:9px;direction:ltr;min-width:0;font-size:15px;white-space:nowrap}
+.brand b{color:var(--blue);font-weight:900;letter-spacing:.02em}
+.brand .sep{width:1px;height:16px;background:var(--line-2)}
+.brand span{font-weight:600}
+.langs{display:flex;background:var(--line);border-radius:999px;padding:3px;flex-shrink:0}
+.pill{padding:5px 10px;border-radius:999px;font-size:13px;font-weight:700;color:var(--muted)}
+.pill.on{background:var(--card);color:var(--text);box-shadow:var(--shadow)}
+.tabbar{position:fixed;bottom:env(safe-area-inset-bottom,0px);left:50%;transform:translateX(-50%);width:min(100%,760px);z-index:30;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px 8px 10px;border-width:1px 0 0;border-radius:22px 22px 0 0}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0;color:var(--muted);font-size:12px;font-weight:600;border-radius:14px;min-width:0}
+.tab svg.i{width:24px;height:24px}
+.tab.on{color:var(--blue)}
+.tab span{white-space:nowrap}
+.card{background:var(--card);border:.5px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);min-width:0;position:relative}
+.hello{font-size:20px;font-weight:800;margin-bottom:12px;line-height:1.5}
+.hero-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.hero-head .hello{flex:1;min-width:0;margin:0}
+.chev{width:32px;height:32px;border-radius:50%;background:var(--line);display:grid;place-items:center;flex-shrink:0}
+.chev svg.i{width:18px;height:18px}
+.hero-mini{display:flex;align-items:center;gap:10px}
+.hero-mini b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+.hero-mini .bar{flex:1;max-width:120px;height:6px}
+.hero-mini .pct{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;direction:ltr}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid var(--line);width:100%}
+.row:last-child{border-bottom:0}
+.muted{color:var(--muted);font-size:14px}
+.bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--gold));transition:width .4s}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 18px;border-radius:16px;background:var(--blue);color:#fff;font-weight:700;font-size:16px;margin-top:12px;text-align:center}
+.btn.ghost{background:var(--soft);color:var(--blue-deep)}
+.btn.danger{background:#ef4444}
+.btn.sm{width:auto;margin-top:0;padding:9px 14px;font-size:14px;border-radius:14px}
+.btn.sm svg.i{width:18px;height:18px}
+.sec{font-size:13px;font-weight:700;color:var(--muted);margin:24px 6px 8px;text-transform:uppercase;letter-spacing:.04em}
+.review{display:flex;align-items:center;gap:14px;margin-top:12px;cursor:pointer}
+.ico{width:44px;height:44px;border-radius:14px;background:var(--soft);color:var(--blue-deep);display:grid;place-items:center;flex-shrink:0}
+.review b{display:block;font-size:16px}
+.book{display:flex;align-items:center;gap:14px;cursor:pointer;margin-bottom:10px}
+.badge{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:17px;flex-shrink:0;direction:ltr;background:linear-gradient(135deg,var(--blue),#38bdf8)}
+.badge.gold{background:linear-gradient(135deg,var(--gold),#fbbf24);color:#422006}
+.badge.navy{background:linear-gradient(135deg,#1e3a8a,var(--blue))}
+.book h3{font-size:16px;direction:ltr;text-align:start}
+.book p{color:var(--muted);font-size:13px;direction:ltr;text-align:start}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}
+.tile{position:relative;text-align:center;padding:14px 10px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);direction:ltr;display:block;width:100%}
+.tile b{display:block;font-size:16px;font-variant-numeric:tabular-nums}
+.tile small{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.dot{position:absolute;top:11px;inset-inline-end:11px;width:9px;height:9px;border-radius:50%;background:#94a3b8}
+.dot.blue{background:var(--blue)}.dot.amber{background:var(--gold)}.dot.green{background:#22c55e}
+.page-head{display:flex;align-items:center;gap:10px;margin:2px 0 14px}
+.page-head h2{font-size:17px;font-weight:800;direction:ltr;text-align:start;flex:1;min-width:0}
+.icon-btn{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--line);flex-shrink:0}
+.mascot{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.word-card{display:flex;align-items:center;gap:12px;padding:12px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);margin-bottom:10px;cursor:pointer;min-width:0}
+.num{min-width:46px;height:28px;padding:0 8px;border-radius:999px;background:var(--soft);color:var(--blue-deep);font-weight:800;font-size:13px;display:grid;place-items:center;flex-shrink:0;direction:ltr;font-variant-numeric:tabular-nums}
+.wt{flex:1;min-width:0;direction:ltr;text-align:start}
+.wt b{display:block;font-size:17px}
+.wt small{color:var(--muted);font-size:13px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--blue-deep);flex-shrink:0}
+.mini.on{background:var(--gold-soft);color:#b45309}
+.tick{color:#16a34a;flex-shrink:0}
+/* 3D image cards */
+.art{width:112px;height:112px;margin:0 auto 4px;display:grid;place-items:center;border-radius:26px;background:var(--glass);border:1px solid var(--line);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:var(--shadow);animation:float 4s ease-in-out infinite}
+.art img{width:76px;height:76px;object-fit:contain;display:block}
+.art.sm{width:84px;height:84px;border-radius:22px;margin:0;animation:none}
+.art.sm img{width:60px;height:60px}
+.mono{width:72px;height:72px;border-radius:50%;background:var(--soft);color:var(--blue-deep);display:grid;place-items:center;font-size:30px;font-weight:900}
+.art.sm .mono{width:52px;height:52px;font-size:22px}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.study-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.study-top .bar{flex:1}
+.study-top .cnt{font-size:13px;font-weight:800;direction:ltr;font-variant-numeric:tabular-nums;min-width:42px;text-align:center}
+.corner{position:absolute;top:12px;inset-inline-end:12px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line-2);color:transparent;transition:background .2s,border-color .2s,color .2s}
+.corner.ok{background:#22c55e;border-color:#22c55e;color:#fff}
+.corner svg.i{width:18px;height:18px}
+.scard{text-align:center}
+.word{font-size:clamp(34px,9vw,46px);font-weight:800;letter-spacing:-.02em;direction:ltr;margin-top:6px;line-height:1.2}
+.pos{display:inline-block;font-size:12px;font-weight:700;padding:3px 11px;border-radius:999px;background:var(--soft);color:var(--blue-deep);direction:ltr;margin-top:8px}
+.phon{color:var(--muted);font-size:18px;direction:ltr;margin-top:6px}
+.audio{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.aud{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border-radius:14px;background:var(--soft);color:var(--blue-deep);font-weight:600;font-size:14px;direction:ltr}
+.aud svg.i{width:18px;height:18px}
+.box{background:var(--soft);border-radius:18px;padding:14px 16px;text-align:start;margin-top:12px}
+.lbl{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.05em;margin:6px 0 2px}
+.def{font-size:17px;direction:ltr;text-align:start}
+.tr{font-size:16px;margin-top:2px}
+.exs{margin-top:16px;text-align:start}
+.ex{display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin-bottom:8px;min-width:0}
+.ex-body{flex:1;min-width:0}
+.ex .en{direction:ltr;text-align:start;font-size:16px}
+.ex .tr{font-size:15px;color:var(--muted);margin-top:4px}
+.study-actions{display:flex;gap:10px;margin-top:14px}
+.study-actions .bm{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-weight:700}
+.study-actions .bm.on{color:#b45309;background:var(--gold-soft)}
+.study-actions .btn{flex:1.4;margin-top:0}
+.study-actions .rep{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:14px;border-radius:16px;background:var(--card);border:.5px solid var(--line);font-weight:700;font-size:14px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);text-align:center;margin-top:14px}
+.empty{text-align:center;padding:36px 18px}
+.empty .ico{margin:0 auto 12px;width:64px;height:64px;border-radius:22px}
+.field{display:flex;gap:10px;align-items:center;margin-top:8px}
+.field input{flex:1;min-width:0;padding:12px 14px;border-radius:14px;border:1px solid var(--line-2);background:var(--bg);font-size:16px}
+.switch{width:51px;height:31px;border-radius:999px;background:var(--line-2);position:relative;flex-shrink:0;transition:background .2s}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.25);transition:transform .2s}
+.switch[aria-checked="true"]{background:#34c759}
+.switch[aria-checked="true"]::after{transform:translateX(20px)}
+.story{font-size:18px;line-height:1.9}
+.story-en{direction:ltr;text-align:start;font-size:17px;line-height:1.9}
+.story-tr{direction:rtl;text-align:start;font-size:16px;line-height:1.9;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted)}
+.kw{background:var(--gold-soft);color:var(--text);font-weight:800;padding:0 3px;border-radius:6px;font-style:normal}
+.story-tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.check-item{display:flex;align-items:center;gap:12px;width:100%;padding:12px 2px;border-bottom:1px solid var(--line);text-align:start;font-size:15px}
+.check-item:last-child{border-bottom:0}
+.cbox{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--line-2);display:grid;place-items:center;flex-shrink:0;color:#fff}
+.cbox.on{background:var(--blue);border-color:var(--blue)}
+.cbox svg.i{width:16px;height:16px}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:40}
+.sheet{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92%,380px);max-height:80vh;overflow:auto;z-index:50;border-radius:24px;padding:20px;background:var(--card);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.sheet h3{font-size:18px;font-weight:800;margin-bottom:6px}
+.sheet p{color:var(--muted);font-size:15px}
+.sheet ul{margin:10px 0 0;padding:0;list-style:none}
+.sheet li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:15px}
+.sheet li svg.i{width:18px;height:18px;color:var(--blue);margin-top:3px}
+.sheet-btns{display:flex;gap:10px;margin-top:16px}
+.sheet-btns .btn{margin-top:0}
+.quiz-word{font-size:clamp(34px,9vw,44px);font-weight:800;direction:ltr;text-align:center;margin:8px 0 4px;line-height:1.2}
+.opt{display:block;width:100%;text-align:start;padding:14px 16px;border-radius:16px;background:var(--card);border:1.5px solid var(--line-2);font-size:15px;margin-top:10px;direction:ltr;line-height:1.5;transition:background .2s,border-color .2s}
+.opt.right{background:rgba(34,197,94,.18);border-color:#22c55e}
+.opt.wrong{background:rgba(239,68,68,.16);border-color:#ef4444}
+.opt:disabled{cursor:default}
+.topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.tcard{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:16px;border-radius:20px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);text-align:start;min-width:0}
+.tcard b{font-size:15px;line-height:1.4}
+.tcard small{color:var(--muted);font-size:12px}
+.qrow{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);margin-bottom:10px;width:100%;text-align:start;min-width:0}
+.qrow .wt{direction:inherit;text-align:start}
+.qrow .wt b{font-size:15px}
+.tagf{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;background:rgba(34,197,94,.16);color:#16a34a;flex-shrink:0}
+.crown{color:#d97706;flex-shrink:0;display:grid;place-items:center}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.stat{padding:14px;border-radius:18px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);min-width:0}
+.stat b{display:block;font-size:22px;font-variant-numeric:tabular-nums;direction:ltr;text-align:start}
+.stat small{color:var(--muted);font-size:13px}
+.chart{display:flex;align-items:flex-end;gap:6px;height:180px;padding-top:6px}
+.col{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.col i{display:block;width:100%;max-width:30px;border-radius:9px;background:var(--soft)}
+.col.today i{background:linear-gradient(180deg,var(--blue),#38bdf8)}
+.col em{font-style:normal;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px;font-variant-numeric:tabular-nums;min-height:16px}
+.col span{font-size:11px;color:var(--muted);margin-top:6px;white-space:nowrap}
+.col.today span{color:var(--blue-deep);font-weight:800}
+.toast{position:fixed;left:50%;top:calc(68px + env(safe-area-inset-top,0px));transform:translate(-50%,-10px);opacity:0;pointer-events:none;z-index:60;padding:10px 16px;border-radius:16px;max-width:calc(100% - 32px);text-align:center;font-weight:700;font-size:14px;transition:opacity .25s,transform .25s;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (min-width:700px){.app{padding-block:84px 150px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"></div>
+<div id="app"></div>
+<div id="toast" class="toast glass" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Storage (same key as v4, so progress is kept) ---------- */
+var KEY = "nabizada_vocab_v4";
+var S = {};
+var R = { tab:"home", page:null, modal:null, reportSel:[], storyTr:false, playing:false, quiz:null, qrun:null };
+
+function newId(){ return "NOA-" + String(10000 + Math.floor(Math.random() * 89999)); }
+function loadState(){
+  var s = {};
+  try { s = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { s = {}; }
+  return {
+    name: typeof s.name === "string" ? s.name : "",
+    id: s.id || newId(),
+    score: typeof s.score === "number" ? s.score : 0,
+    learned: s.learned || {},
+    awarded: s.awarded || {},
+    bookmarks: s.bookmarks || {},
+    daily: s.daily || {},
+    quizzesDone: typeof s.quizzesDone === "number" ? s.quizzesDone : 0,
+    done1: !!s.done1,
+    lang: (s.lang === "en" || s.lang === "ps") ? s.lang : "fa",
+    theme: s.theme === "dark" ? "dark" : "light"
+  };
+}
+function saveState(){
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* storage unavailable: work in memory */ }
+}
+function esc(v){
+  return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+/* ---------- Icons (UI only, stroke SVG, no emoji) ---------- */
+function svg(path){
+  return '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+path+'</svg>';
+}
+var IC = {
+  home:  svg('<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>'),
+  quiz:  svg('<rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/>'),
+  stats: svg('<path d="M4 20V10M10 20V4M16 20v-7M2 20h20"/>'),
+  user:  svg('<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>'),
+  speaker: svg('<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>'),
+  female: svg('<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/>'),
+  clock: svg('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+  flag:  svg('<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>'),
+  bookmark: svg('<path d="M6 4h12v17l-6-4-6 4z"/>'),
+  bookmarkOn: '<svg class="i" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h12v17l-6-4-6 4z"/></svg>',
+  x:     svg('<path d="M6 6l12 12M18 6L6 18"/>'),
+  back:  svg('<path d="M15 6l-6 6 6 6"/>'),
+  check: svg('<path d="M5 12l5 5 9-10"/>'),
+  review: svg('<path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 4v4h-4M21 12a9 9 0 0 1-15 6.7L3 16M3 20v-4h4"/>'),
+  crown: svg('<path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/>'),
+  lock:  svg('<rect x="5" y="11" width="14" height="10" rx="3"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+  chevron: svg('<path d="M9 6l6 6-6 6"/>'),
+  chevDown: svg('<path d="M6 9l6 6 6-6"/>'),
+  chevUp: svg('<path d="M6 15l6-6 6 6"/>'),
+  shield: svg('<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/>'),
+  play:  '<svg class="i" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5l12 7-12 7z"/></svg>',
+  stop:  '<svg class="i" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>'
+};
+
+/* ---------- UI strings ---------- */
+var LANGS = { en:"EN", fa:"دری", ps:"پښتو" };
+var DEFAULT_NAME = { en:"Dear Learner", fa:"زبان‌آموز عزیز", ps:"ګرانه زده‌کوونکیه" };
+var DAYS = {
+  en:["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],
+  fa:["شن","یک","دو","سه","چه","پن","جم"],
+  ps:["شن","یک","دو","دری","څلور","پنج","جمع"]
+};
+var UI = {
+  en: {
+    home:"Home", quizzes:"Quizzes", activity:"Activity", profile:"Profile",
+    greet:function(n){ return "Hello " + n + ", nice to see you again!"; },
+    progress:"Overall progress", start:"Start learning",
+    review:"Quick review", reviewSub:"Four-option quiz on your learned and bookmarked words",
+    books:"Books", soon:"Coming soon",
+    lessonsCount:function(n){ return n + " lessons"; },
+    perLesson:function(n){ return n + " words per lesson"; },
+    levels:function(n){ return n + " levels"; },
+    wordsSoFar:function(x,t){ return x + " / " + t + " words so far"; },
+    cont:"Continue study", story:"Lesson 1 reading story",
+    close:"Close", report:"Report an issue", next:"Next", finish:"Finish lesson",
+    bookmark:"Bookmark", definition:"DEFINITION", meaning:"MEANING", examples:"EXAMPLE SENTENCES",
+    listen:"Listen", translation:"Translation", finishBonus:"Complete lesson (+20 points)",
+    needAll:"Learn all 12 words first.", bonusGot:"Lesson complete: +20 points", alreadyDone:"The lesson bonus was already received.",
+    stay:"Continue study", exit:"Exit", exitTitle:"Leave this lesson?",
+    exitMsg:"If you leave now, your study will stop. Your current progress is saved.",
+    reportTitle:"Report an issue", submit:"Submit", reportNone:"Choose at least one item.", reportOk:"Your request has been submitted.",
+    reportItems:["The image does not match the meaning","The word meaning is incorrect","The pronunciation audio is wrong","The example does not match","The sentence translation is wrong","The example audio is wrong","Contact support"],
+    reviewEmpty:"No learned or bookmarked words yet.",
+    lessonDone:"Lesson 1 words complete. The reading story is next.",
+    soonToast:"Coming soon.", activitySoon:"",
+    lessonWord:function(n){ return "Lesson " + n; }, level:function(n){ return "Level " + n; },
+    learnedPlus:"Learned: +2 points", bmOn:"Bookmarked", bmOff:"Removed from bookmarks",
+    nameLabel:"Name", save:"Save", nameSaved:"Name saved.", themeLabel:"Dark mode",
+    userId:"ID", totalScore:"Total score", learnedCount:"Learned words", activityTitle:"Your progress",
+    back:"Back", playStory:"Listen", stopStory:"Stop", collapse:"Collapse", expand:"Expand", reportShort:"Report",
+    femaleLbl:"US Female", maleLbl:"US Male", slowLbl:"Slow pronunciation",
+    quizTitle:"Which meaning matches this word?", nextQ:"Next question", seeResult:"See result",
+    quizDone:"Quiz complete", quizSolved:function(s,t){ return s + " / " + t + " solved"; },
+    quizScore:function(f,t,w){ return "Correct on first try: " + f + " of " + t + " · Mistakes: " + w; },
+    quizAgain:"Try again", quizEmpty:"Learn or bookmark at least one word first.",
+    quizCenter:"Quiz Center", topicsSec:"Topics", levelsSec:"Levels", freeTag:"Free", vipTag:"VIP",
+    quizCount:function(n){ return n + " questions"; },
+    question:"Question", correct:"Correct", wrong:"Not quite", pts:function(p){ return "+" + p + " points"; },
+    quizResult:function(c,t){ return c + " of " + t + " correct"; },
+    activeWeek:"Weekly activity",
+    statLessons:"Lessons completed", statWords:"Words learned", statQuizzes:"Quizzes taken", statScore:"Total score",
+    bookmarksSec:"Bookmarks", noBookmarks:"No bookmarked words yet.", remove:"Remove",
+    privacy:"Privacy Policy", privacyTitle:"Nabizada Online Academy: Rules & Privacy", privacyRules:["Your progress (learned words, bookmarks, points and quizzes) is saved only on this device.","This version does not ask for an account, phone number, address or payment details.","All learning content belongs to Nabizada Online Academy. Copying, republishing or selling it without written permission is not allowed.","Free quizzes and content are for personal study. VIP sections become available after activation.","To report a content problem, use the flag button on the lesson page.","Clearing your browser or site data will erase your saved progress."],
+    vipTitle:"VIP Access", vipBody:"Unlock every quiz, every level and the full 504 and 1100 word books.",
+    vipActivate:"Activate", vipSupport:"Contact academy support", vipSoon:"Activation will be available soon.",
+    vipNotice:"Support contact will be added here."
+  },
+  fa: {
+    home:"خانه", quizzes:"آزمون‌ها", activity:"آمار و فعالیت", profile:"حساب کاربری",
+    greet:function(n){ return "سلام " + n + "، خوشحالم که دوباره می‌بینمت!"; },
+    progress:"پیشرفت کلی", start:"شروع یادگیری",
+    review:"مرور کلمات", reviewSub:"آزمون چهارگزینه‌ای از کلمات یادگرفته و نشان‌شده",
+    books:"کتاب‌ها", soon:"به‌زودی",
+    lessonsCount:function(n){ return n + " درس"; },
+    perLesson:function(n){ return n + " کلمه در هر درس"; },
+    levels:function(n){ return n + " سطح"; },
+    wordsSoFar:function(x,t){ return x + " / " + t + " کلمه تا الان"; },
+    cont:"ادامه آموزش", story:"داستان و ریدینگ درس ۱",
+    close:"بستن", report:"گزارش مشکل", next:"بعدی", finish:"پایان درس",
+    bookmark:"نشان", definition:"تعریف", meaning:"معنی", examples:"جمله‌هایی با این کلمه",
+    listen:"شنیدن", translation:"ترجمه", finishBonus:"تکمیل درس (+20 امتیاز)",
+    needAll:"ابتدا همه ۱۲ کلمه را یاد بگیرید.", bonusGot:"درس تکمیل شد: +20 امتیاز", alreadyDone:"امتیاز این درس قبلاً دریافت شده است.",
+    stay:"ادامه آموزش", exit:"خروج", exitTitle:"از این درس خارج می‌شوید؟",
+    exitMsg:"با خارج شدن از درس، روند آموزش متوقف خواهد شد. پیشرفت فعلی شما ذخیره می‌شود.",
+    reportTitle:"گزارش مشکل", submit:"ثبت", reportNone:"حداقل یک مورد را انتخاب کنید.", reportOk:"درخواست شما ثبت شد",
+    reportItems:["عکس معنی نمی‌دهد","معنی کلمه درست نیست","تلفظ صوتی مشکل دارد","مثال همخوانی ندارد","ترجمه جمله مشکل دارد","صوت مثال مشکل دارد","ارتباط با پشتیبانی"],
+    reviewEmpty:"هنوز کلمه‌ای یاد گرفته یا نشان نشده‌ای.",
+    lessonDone:"کلمات درس ۱ کامل شد. متن خواندنی بعدی است.",
+    soonToast:"به‌زودی.", activitySoon:"",
+    lessonWord:function(n){ return "درس " + n; }, level:function(n){ return "سطح " + n; },
+    learnedPlus:"یادگرفته شد: +۲ امتیاز", bmOn:"نشان شد", bmOff:"از نشان‌ها حذف شد",
+    nameLabel:"نام", save:"ذخیره", nameSaved:"نام ذخیره شد.", themeLabel:"حالت شب",
+    userId:"شناسه", totalScore:"امتیاز کل", learnedCount:"کلمات یادگرفته‌شده", activityTitle:"پیشرفت شما",
+    back:"بازگشت", playStory:"شنیدن", stopStory:"توقف", collapse:"جمع کردن", expand:"باز کردن", reportShort:"گزارش",
+    femaleLbl:"صدای خانم (US Female)", maleLbl:"صدای آقا (US Male)", slowLbl:"تلفظ شمرده",
+    quizTitle:"کدام معنی با این کلمه مطابقت دارد؟", nextQ:"سوال بعدی", seeResult:"دیدن نتیجه",
+    quizDone:"آزمون تمام شد", quizSolved:function(s,t){ return s + " از " + t + " حل شد"; },
+    quizScore:function(f,t,w){ return "درست از اولین تلاش: " + f + " از " + t + " · اشتباه: " + w; },
+    quizAgain:"آزمون دوباره", quizEmpty:"ابتدا حداقل یک کلمه را یاد بگیرید یا نشان کنید.",
+    quizCenter:"مرکز آزمون‌ها", topicsSec:"موضوعات", levelsSec:"سطح‌ها", freeTag:"رایگان", vipTag:"VIP",
+    quizCount:function(n){ return n + " سوال"; },
+    question:"سوال", correct:"درست است", wrong:"درست نیست", pts:function(p){ return "+" + p + " امتیاز"; },
+    quizResult:function(c,t){ return c + " از " + t + " درست"; },
+    activeWeek:"فعالیت هفتگی",
+    statLessons:"درس‌های تکمیل‌شده", statWords:"کلمات یادگرفته‌شده", statQuizzes:"آزمون‌های انجام‌شده", statScore:"امتیاز کل",
+    bookmarksSec:"کلمات ذخیره‌شده (Bookmarks)", noBookmarks:"هنوز کلمه‌ای ذخیره نشده.", remove:"حذف",
+    privacy:"حریم خصوصی (Privacy Policy)", privacyTitle:"قوانین و حریم خصوصی آکادمی آنلاین نبی‌زاده", privacyRules:["پیشرفت شما (کلمات یادگرفته‌شده، نشان‌ها، امتیاز و آزمون‌ها) فقط روی همین دستگاه ذخیره می‌شود.","در این نسخه، حساب کاربری، شماره تلفن، آدرس یا اطلاعات پرداخت از شما خواسته نمی‌شود.","تمام محتوای آموزشی متعلق به آکادمی آنلاین نبی‌زاده است و کپی، بازنشر یا فروش آن بدون اجازه کتبی مجاز نیست.","آزمون‌ها و محتوای رایگان برای یادگیری شخصی هستند. بخش‌های VIP پس از فعال‌سازی در دسترس قرار می‌گیرند.","برای گزارش مشکل محتوا، از دکمه پرچم در صفحه درس استفاده کنید.","پاک کردن اطلاعات مرورگر یا سایت، پیشرفت ذخیره‌شده شما را حذف می‌کند."],
+    vipTitle:"دسترسی VIP", vipBody:"قفل همه آزمون‌ها، همه سطح‌ها و کتاب‌های کامل ۵۰۴ و ۱۱۰۰ کلمه را باز کنید.",
+    vipActivate:"فعال‌سازی", vipSupport:"ارتباط با پشتیبانی آکادمی", vipSoon:"فعال‌سازی به‌زودی ممکن می‌شود.",
+    vipNotice:"اطلاعات تماس پشتیبانی به‌زودی اینجا قرار می‌گیرد."
+  },
+  ps: {
+    home:"کور", quizzes:"ازموینې", activity:"فعالیت", profile:"حساب",
+    greet:function(n){ return "سلام " + n + "، ډېر خوښ شوم چې بیا مو وینم!"; },
+    progress:"ټولیز پرمختګ", start:"د زده کړې پیل",
+    review:"د لغاتو بیاکتنه", reviewSub:"د زده شوو او نښه شوو لغاتو څلورځوابه ازموینه",
+    books:"کتابونه", soon:"ژر راځي",
+    lessonsCount:function(n){ return n + " درسونه"; },
+    perLesson:function(n){ return "په هر درس کې " + n + " لغته"; },
+    levels:function(n){ return n + " کچې"; },
+    wordsSoFar:function(x,t){ return x + " / " + t + " لغته تر اوسه"; },
+    cont:"د زده کړې دوام", story:"د لوست ۱ لوست کیسه",
+    close:"بندول", report:"ستونزه راپور کول", next:"بل", finish:"د درس پای",
+    bookmark:"نښه", definition:"تعریف", meaning:"معنی", examples:"د دې لغت سره جملې",
+    listen:"اوریدل", translation:"ژباړه", finishBonus:"درس بشپړ کول (+20 امتیاز)",
+    needAll:"لومړی ټول ۱۲ لغات زده کړئ.", bonusGot:"درس بشپړ شو: +20 امتیاز", alreadyDone:"د دې درس امتیاز مخکې ترلاسه شوی.",
+    stay:"د زده کړې دوام", exit:"وتل", exitTitle:"له دې درس وځئ؟",
+    exitMsg:"له درس وتلو سره، زده کړه به ودرېږي. اوسنی پرمختګ به خوندي شي.",
+    reportTitle:"ستونزه راپور کول", submit:"ولیږل", reportNone:"لږترلږه یوه مورد وټاکئ.", reportOk:"ستاسو غوښتنه ثبت شوه",
+    reportItems:["انځور معنی نه ورکوي","د لغت معنی سمه نه ده","صوتي تلفظ ستونزمن دی","مثال سره نه خوري","د جملې ژباړه ستونزمنه ده","د مثال غږ ستونزمن دی","له ملاتړ سره اړیکه"],
+    reviewEmpty:"تر اوسه هیڅ لغت زده شوی یا نښه شوی نشته.",
+    lessonDone:"د لوست ۱ لغات بشپړ شول. کیسه بله ده.",
+    soonToast:"ژر راځي.", activitySoon:"",
+    lessonWord:function(n){ return "لوست " + n; }, level:function(n){ return "کچه " + n; },
+    learnedPlus:"زده شو: +2 امتیاز", bmOn:"نښه شو", bmOff:"له نښو لرې شو",
+    nameLabel:"نوم", save:"خوندي کول", nameSaved:"نوم خوندي شو.", themeLabel:"تیاره بڼه",
+    userId:"پیژندنه", totalScore:"ټول امتیاز", learnedCount:"زده شوې لغات", activityTitle:"ستاسو پرمختګ",
+    back:"شا ته", playStory:"اوریدل", stopStory:"درېدل", collapse:"پټول", expand:"پرانیستل", reportShort:"راپور",
+    femaleLbl:"د ښځې غږ (US Female)", maleLbl:"د سړي غږ (US Male)", slowLbl:"ورو تلفظ",
+    quizTitle:"کوم معنی له دې لغت سره سمون لري؟", nextQ:"بله پوښتنه", seeResult:"پایله وګورئ",
+    quizDone:"ازموینه پای ته ورسېده", quizSolved:function(s,t){ return s + " له " + t + " څخه حل شو"; },
+    quizScore:function(f,t,w){ return "د لومړي هڅې سمې ځوابونه: " + f + " له " + t + " څخه · غلطۍ: " + w; },
+    quizAgain:"بیا هڅه", quizEmpty:"لومړی لږترلږه یو لغت زده یا نښه کړئ.",
+    quizCenter:"د ازموینو مرکز", topicsSec:"موضوعات", levelsSec:"کچې", freeTag:"وړیا", vipTag:"VIP",
+    quizCount:function(n){ return n + " پوښتنې"; },
+    question:"پوښتنه", correct:"سمه ده", wrong:"سمه نه ده", pts:function(p){ return "+" + p + " امتیاز"; },
+    quizResult:function(c,t){ return c + " له " + t + " څخه سم"; },
+    activeWeek:"د اونۍ فعالیت",
+    statLessons:"بشپړ شوي لوستونه", statWords:"زده شوې لغات", statQuizzes:"ترسره شوې ازموینې", statScore:"ټول امتیاز",
+    bookmarksSec:"خوندي شوې لغات (Bookmarks)", noBookmarks:"تر اوسه هیڅ خوندي شوې لغت نشته.", remove:"لرې کول",
+    privacy:"د محرميت پالیسي (Privacy Policy)", privacyTitle:"د نبي‌زاده آنلاین اکادمۍ مقررات او محرميت", privacyRules:["ستاسو پرمختګ (زده شوې لغات، نښې، امتیازونه او ازموینې) یوازې پر همدې وسیله ساتل کېږي.","په دې نسخه کې له تاسو حساب، تلیفون شمېره، پته یا د تادیې معلومات نه غوښتل کېږي.","ټوله زده کړیزه منځپانګه د نبي‌زاده آنلاین اکادمۍ ملکیت ده؛ له لیکلي اجازې پرته کاپي، بیا خپرول یا پلورل روا نه دي.","رایګانې ازموینې او منځپانګه د شخصي زده کړې لپاره دي. د VIP برخې د فعالولو وروسته شتون لري.","د منځپانګې د ستونزې د راپور لپاره د لوست پاڼې پرچم تڼۍ وکاروئ.","د براوزر یا سایټ معلومات پاکول، خوندي شوی پرمختګ له منځه وړي."],
+    vipTitle:"VIP لاسرسی", vipBody:"ټولې ازموینې، ټولې کچې او د ۵۰۴ او ۱۱۰۰ لغاتو بشپړ کتابونه خلاص کړئ.",
+    vipActivate:"فعالول", vipSupport:"د اکادمۍ ملاتړ سره اړیکه", vipSoon:"فعالول به ژر ممکن کېږي.",
+    vipNotice:"د ملاتړ اړیکې معلومات به ژر دلته اضافه شي."
+  }
+};
+function T(){ return UI[S.lang]; }
+function L(o){ return o[S.lang] || o.en; }
+function displayName(){ return S.name && S.name.trim() ? S.name.trim() : DEFAULT_NAME[S.lang]; }
+
+/* ---------- Content: books ---------- */
+var BOOKS = [
+  { id:"504",  title:"504 Essential Words",          lessons:42, per:12, kind:"lessons", badge:"504",  cls:"" },
+  { id:"1100", title:"1100 Words You Need to Know",  lessons:55, per:20, kind:"lessons", badge:"1100", cls:"gold" },
+  { id:"4000", title:"4000 Essential English Words", levels:6,  kind:"levels",  badge:"4000", cls:"navy" }
+];
+function bookById(id){ for (var i=0;i<BOOKS.length;i++) if (BOOKS[i].id===id) return BOOKS[i]; return BOOKS[0]; }
+
+/* ---------- 3D images (Fluent UI Emoji, jsDelivr). If an image cannot load, a letter badge is shown instead. ---------- */
+var CDN = "https://cdn.jsdelivr.net/gh/microsoft/fluentui-emoji@main/assets/";
+var IMG = {
+  student:  CDN + "Student/3D/student_3d.png",
+  medal:    CDN + "1st%20place%20medal/3D/1st_place_medal_3d.png",
+  abandon:  CDN + "Ship/3D/ship_3d.png",
+  keen:     CDN + "Magnifying%20glass%20tilted%20left/3D/magnifying_glass_tilted_left_3d.png",
+  jealous:  CDN + "Trophy/3D/trophy_3d.png",
+  tact:     CDN + "Balance%20scale/3D/balance_scale_3d.png",
+  oath:     CDN + "Raised%20hand/3D/raised_hand_3d.png",
+  vacant:   CDN + "Door/3D/door_3d.png",
+  hardship: CDN + "Snow-capped%20mountain/3D/snow-capped_mountain_3d.png",
+  gallant:  CDN + "Shield/3D/shield_3d.png",
+  data:     CDN + "Bar%20chart/3D/bar_chart_3d.png",
+  unaccustomed: CDN + "Cold%20face/3D/cold_face_3d.png",
+  bachelor: CDN + "Graduation%20cap/3D/graduation_cap_3d.png",
+  qualify:  CDN + "Check%20mark%20button/3D/check_mark_button_3d.png"
+};
+function artHtml(src, label, small){
+  var letter = String(label).charAt(0).toUpperCase();
+  return '<div class="art'+(small?" sm":"")+'"><img src="'+esc(src)+'" alt="'+esc(label)+'" data-fb="'+esc(letter)+'" loading="lazy"></div>';
+}
+function bindFallbacks(){
+  var imgs = document.querySelectorAll("img[data-fb]");
+  for (var k=0;k<imgs.length;k++){
+    (function(img){
+      function fail(){
+        if (!img.parentNode) return;
+        var span = document.createElement("span");
+        span.className = "mono";
+        span.textContent = img.getAttribute("data-fb");
+        img.parentNode.replaceChild(span, img);
+      }
+      img.addEventListener("error", fail);
+      if (img.complete && img.naturalWidth === 0) fail();
+    })(imgs[k]);
+  }
+}
+
+/* ---------- Content: Lesson 1 of 504 ----------
+   Each example: [English, Dari, Pashto]. Translations are drafts pending native review.
+   audioUrlFemale / audioUrlMale are reserved for dedicated recordings (null = use built-in speech). */
+var LESSON1 = [
+  { w:"abandon", pos:"verb", ph:"/əˈbændən/", def:"to leave someone or something behind and not go back to them", fa:"رها کردن، ترک کردن", ps:"پریښودل، ترک کول",
+    ex:[
+      ["They had to abandon the car in the snow.", "آنها مجبور شدند ماشین را در برف رها کنند.", "دوی مجبور شول چې موټر په واورو کې پریږدي."],
+      ["Never abandon your dreams, even when life is hard.", "هرگز رویاهایت را رها نکن، حتی وقتی زندگی سخت است.", "هیڅکله خپل خوبونه مه پریږدئ، حتی کله چې ژوند سخت وي."],
+      ["The team decided to abandon the plan.", "تیم تصمیم گرفت آن برنامه را کنار بگذارد.", "ټیم پریکړه وکړه چې دغه پلان پریږدي."] ]},
+  { w:"keen", pos:"adjective", ph:"/kiːn/", def:"eager or enthusiastic about something; also sharp or perceptive", fa:"مشتاق، علاقه‌مند، تیز", ps:"لیواله، ډېر علاقه‌من، تیز",
+    ex:[
+      ["She is keen to learn English.", "او مشتاق یادگیری انگلیسی است.", "هغه د انګلیسي زده کولو ته ډېره لیواله ده."],
+      ["He has a keen sense of humor.", "او حس شوخ‌طبعی بسیار تیزی دارد.", "هغه د ټوکو ډېر تیز احساس لري."],
+      ["Our teacher has keen eyes; she notices every mistake.", "معلم ما چشمان تیزی دارد؛ او هر اشتباهی را می‌بیند.", "زموږ ښوونکې تیزې سترګې لري؛ هره تېروتنه ګوري."] ]},
+  { w:"jealous", pos:"adjective", ph:"/ˈdʒeləs/", def:"feeling resentful because someone has something you want", fa:"حسود", ps:"حسد کوونکی",
+    ex:[
+      ["He felt jealous when his friend got the new job.", "وقتی دوستش شغل جدید گرفت، حس حسادت کرد.", "کله چې ملګري یې نوې دنده ترلاسه کړه، حسد یې وکړ."],
+      ["Don't be jealous of your brother's success.", "به موفقیت برادرت حسادت نکن.", "د خپل ورور په بریالیتوب حسد مه کوه."],
+      ["She was jealous of the attention her sister received.", "به توجهی که خواهرش می‌گرفت حسادت می‌کرد.", "د خور په ترلاسه شوې پاملرنې یې حسد کاوه."] ]},
+  { w:"tact", pos:"noun", ph:"/tækt/", def:"skill in dealing with people without upsetting them", fa:"تدبیر، ظرافت در برخورد", ps:"هوښیارتیا، تدبیر",
+    ex:[
+      ["She handled the difficult question with great tact.", "او با تدبیر زیادی به آن سؤال سخت پاسخ داد.", "هغې په ډېر تدبیر سره هغه ستونزمن پوښتنې ته ځواب ورکړ."],
+      ["It takes tact to tell someone their work needs improvement.", "برای گفتن اینکه کار کسی باید بهتر شود، تدبیر لازم است.", "یو چا ته ویل چې کار یې ښه کېدل پکار دي، تدبیر ته اړتیا لري."],
+      ["Without tact, a true statement can hurt people.", "بدون تدبیر، یک حرف درست هم می‌تواند آدم را برنجاند.", "د تدبیر پرته، ریښتینې خبره هم خلک زخمي کولای شي."] ]},
+  { w:"oath", pos:"noun", ph:"/oʊθ/", def:"a solemn promise, often made in front of others", fa:"سوگند، قسم", ps:"قسم",
+    ex:[
+      ["The soldier took an oath to protect his country.", "سرباز سوگند یاد کرد که از کشورش محافظت کند.", "سرتېری د خپل هېواد د ساتلو قسم وخوړ."],
+      ["He swore an oath to keep the secret.", "او قسم خورد که راز را نگه دارد.", "هغه د پټ ساتلو قسم وکړ."],
+      ["Doctors take an oath before they start practicing medicine.", "پزشکان پیش از شروع کار، سوگند یاد می‌کنند.", "ډاکټران د طب کار پیل کولو دمخه قسم خوري."] ]},
+  { w:"vacant", pos:"adjective", ph:"/ˈveɪkənt/", def:"empty, with no one or nothing occupying it", fa:"خالی", ps:"خالي",
+    ex:[
+      ["The seat next to me is vacant.", "صندلی کنار من خالی است.", "د ما ترڅنګ څوکۍ خالې ده."],
+      ["The house has been vacant for two years.", "این خانه دو سال است خالی مانده است.", "دا کور دوه کاله خالي پاتې دی."],
+      ["The position of manager is still vacant.", "جایگاه مدیر هنوز خالی است.", "د مدیر دنده لا هم خالې ده."] ]},
+  { w:"hardship", pos:"noun", ph:"/ˈhɑːrdʃɪp/", def:"a difficult condition, such as a lack of money or comfort", fa:"سختی، مشقت", ps:"سختي، ستونزه",
+    ex:[
+      ["Many families faced hardship during the war.", "بسیاری از خانواده‌ها در جنگ با سختی‌های زیادی روبه‌رو شدند.", "ډېری کورنۍ د جګړې پر مهال سختۍ ته مخامخ شوې."],
+      ["She overcame many hardships to finish school.", "او سختی‌های زیادی را پشت سر گذاشت تا مکتب را تمام کند.", "هغې د ښوونځي د بشپړولو لپاره ډېرې سختۍ زغمې."],
+      ["Despite the hardship, he never gave up.", "با وجود سختی‌ها، او هرگز تسلیم نشد.", "له سختیو سره سره، هغه هیڅکله تسلیم نه شو."] ]},
+  { w:"gallant", pos:"adjective", ph:"/ˈɡælənt/", def:"brave and polite, especially in a way that shows respect", fa:"شجاع و جوانمرد", ps:"زړور او درناوی لرونکی",
+    ex:[
+      ["He was gallant enough to carry her heavy bags.", "او جوانمرد بود و کیف‌های سنگین او را حمل کرد.", "هغه ډېر ښه اخلاق درلود او د هغې درانه کڅوړې یې پورته کړې."],
+      ["The gallant knight rescued the village.", "شوالیه شجاع روستا را نجات داد.", "زړور شوالیه کلی وژغوره."],
+      ["It was gallant of him to defend a stranger.", "دفاع از یک غریبه کار جوانمردانه‌ای از او بود.", "د یو اجنبي دفاع کول د هغه لپاره ښه مېړانه وه."] ]},
+  { w:"data", pos:"noun", ph:"/ˈdeɪtə/", def:"facts or figures collected for reference or analysis", fa:"داده‌ها، اطلاعات", ps:"معلومات، ډېټا",
+    ex:[
+      ["The researchers collected data from fifty schools.", "پژوهشگران داده‌ها را از پنجاه مکتب جمع‌آوری کردند.", "څېړونکو د پنځوس ښوونځیو معلومات راټول کړل."],
+      ["Our app stores your data safely on your phone.", "برنامه ما داده‌های شما را به شکل امن در تلفنتان ذخیره می‌کند.", "زموږ اپلیکېشن ستاسو معلومات ستاسو په تلیفون کې په خوندي ډول ساتي."],
+      ["Look at the data before you make a decision.", "پیش از تصمیم‌گیری، به داده‌ها نگاه کن.", "پریکړه له کولو دمخه معلومات وګوره."] ]},
+  { w:"unaccustomed", pos:"adjective", ph:"/ˌʌnəˈkʌstəmd/", def:"not used to something", fa:"عادت‌نکرده، ناآشنا", ps:"عادت نه لرونکی",
+    ex:[
+      ["He is unaccustomed to cold weather.", "او به هوای سرد عادت ندارد.", "هغه د سړې هوا عادت نه لري."],
+      ["She felt unaccustomed to such luxury.", "او احساس می‌کرد به چنین تجملی عادت ندارد.", "هغې احساس کاوه چې دې ډول ښه ژوند ته عادت نه لري."],
+      ["Unaccustomed to public speaking, he was nervous.", "چون به سخنرانی در جمع عادت نداشت، نگران بود.", "د خلکو په مخ کې د خبرو کولو عادت نه درلودلو له امله، هغه اندېښمن و."] ]},
+  { w:"bachelor", pos:"noun", ph:"/ˈbætʃələr/", def:"a man who has never married; or a person with a first university degree", fa:"مجرد؛ دارای لیسانس", ps:"ناواده سړی؛ لیسانس لرونکی",
+    ex:[
+      ["My brother is still a bachelor at thirty.", "برادرم در سی سالگی هنوز مجرد است.", "زما ورور دېرش کلنۍ ته رسیدلی او لا ناواده دی."],
+      ["She earned a bachelor's degree in computer science.", "او لیسانس خود را در رشته علوم کامپیوتر گرفت.", "هغې د کمپیوټر ساینس کې لیسانس سند ترلاسه کړ."],
+      ["He has a bachelor of arts degree from Kabul University.", "او لیسانس هنر از دانشگاه کابل دارد.", "هغه د کابل پوهنتون څخه د هنرونو لیسانس لري."] ]},
+  { w:"qualify", pos:"verb", ph:"/ˈkwɑːlɪfaɪ/", def:"to meet the requirements needed for a job, course or benefit", fa:"واجد شرایط شدن", ps:"وړ کېدل، وړتیا ترلاسه کول",
+    ex:[
+      ["Students must pass the exam to qualify for the course.", "دانشجویان باید امتحان را قبول شوند تا واجد شرایط دوره شوند.", "زده کوونکي باید ازموینه بریالۍ کړي ترڅو د دې دورې وړ شي."],
+      ["She qualified as a nurse after three years of training.", "او بعد از سه سال آموزش به عنوان پرستار واجد شرایط شد.", "هغه د درې کلنې روزنې وروسته د نرس په توګه وړتیا ترلاسه کړه."],
+      ["Only applicants who meet the rules qualify for the scholarship.", "فقط متقاضیانی که قوانین را رعایت می‌کنند، برای بورسیه واجد شرایط می‌شوند.", "یوازې هغه غوښتونکي چې قواعد پوره کوي، د بورسیې وړ کېږي."] ]}
+];
+
+/* ---------- Content: reading story ---------- */
+var STORY_EN = "Sara was a {keen} student at a small city school. When her best friend won a scholarship, she felt a little {jealous}, but she showed {tact} and congratulated him warmly. Her grandfather had taken an {oath} never to {abandon} his family, and she remembered his words. The seat beside her was {vacant} that morning, because a classmate had moved away after a family {hardship}. Sara sat down, opened her notebook, and studied the {data} from the last test. A {gallant} boy from her class offered to help, which surprised her, because she was {unaccustomed} to such kindness. One day, she dreamed, she would {qualify} for university and earn a {bachelor} degree in science.";
+var STORY_FA = "سارا شاگرد مشتاقی در یک مکتب کوچک شهر بود. وقتی بهترین دوستش بورسیه گرفت، کمی حسادت کرد، اما با تدبیر به او تبریک گفت. پدربزرگش سوگند خورده بود که هرگز خانواده‌اش را رها نکند و سارا این حرف‌ها را به یاد داشت. صندلی کنار او آن صبح خالی بود، چون همکلاسی‌اش به خاطر سختی‌های خانوادگی به شهر دیگری رفته بود. سارا نشست، دفترش را باز کرد و داده‌های آخرین امتحان را بررسی کرد. پسری جوانمرد از کلاس پیشنهاد کمک داد و این برایش عجیب بود، چون به چنین مهربانی‌ای عادت نداشت. او رویا داشت که روزی واجد شرایط دانشگاه شود و لیسانس علوم بگیرد.";
+var STORY_PS = "سارا د یوه کوچني ښار په ښوونځي کې یوه لیواله زده کوونکې وه. کله چې ترټولو ښه ملګری یې بورسیه ترلاسه کړه، لږ حسد یې وکړ، خو په تدبیر سره یې ورته مبارکي ووایه. د هغې نیکه د کورنۍ پریښودو نه کولو قسم خوړی و، او سارا دا خبرې په یاد درلودې. هغه سهار د ټولګي د هغې څنګ څوکۍ خالي وه، ځکه یو ملګری د کورنۍ سختۍ له امله بل ښار ته لاړ. سارا کېناسته، خپل کتاب یې خلاص کړ او د تېر ازموینې معلومات یې وڅېړل. د ټولګي یو جوانمرد هلک مرسته وړاندې کړه، او دا یې حیران کړ، ځکه هغه د داسې مهربانۍ عادت نه درلود. هغې یوه ورځ خوب لیده چې د پوهنتون وړ به شي او د ساینس لیسانس به ترلاسه کړي.";
+
+/* ---------- Content: quizzes (Phase 2) ----------
+   Free quiz: Daily Idioms, Elementary. Other quizzes are locked until content is added. */
+var QUIZ_TOPICS = [
+  { id:"idioms",  en:"Daily Idioms",   fa:"اصطلاحات روزانه", ps:"ورځنۍ محاورې" },
+  { id:"phrasal", en:"Phrasal Verbs",  fa:"افعال عبارتی",    ps:"عبارتي فعلونه" },
+  { id:"prep",    en:"Prepositions",   fa:"حروف اضافه",      ps:"حروف اضافه" }
+];
+var QUIZ_LEVELS = [
+  { id:"e", en:"Elementary",       fa:"ابتدایی",        ps:"لومړنی" },
+  { id:"p", en:"Pre-Intermediate", fa:"پیش‌متوسط",      ps:"مخکینی منځنی" },
+  { id:"i", en:"Intermediate",     fa:"متوسط",          ps:"منځنی" },
+  { id:"a", en:"Advanced",         fa:"پیشرفته",        ps:"پرمختللی" }
+];
+var IDIOMS_E = [
+  { q:"I'm feeling ___ today, so I'm staying home.", opts:["under the weather","on the ball","cup of tea","hit the road"], c:0,
+    ex:{ en:"Under the weather means feeling slightly sick.", fa:"زیر آب و هوا بودن یعنی کمی احساس بیماری داشتن.", ps:"د هوا لاندې کېدل پدې معنا دي چې یو څه ناروغ احساس شې." } },
+  { q:"The exam was easy. It was a ___.", opts:["piece of cake","bread and butter","fish out of water","cold feet"], c:0,
+    ex:{ en:"Piece of cake means something very easy.", fa:"تکه کیک بودن یعنی خیلی آسان بودن.", ps:"د کیک ټوټه یعنی ډېر اسانه شی." } },
+  { q:"You need to ___ if you want to pass the test.", opts:["hit the books","break the ice","spill the beans","let the cat out"], c:0,
+    ex:{ en:"Hit the books means to study hard.", fa:"کتاب‌ها را زدن یعنی جدی درس خواندن.", ps:"کتابونه وهل یعنی ډېر ښه مطالعه کول." } },
+  { q:"Good luck tomorrow! ___!", opts:["Break a leg","Hold your horses","Under the table","Call it a day"], c:0,
+    ex:{ en:"Break a leg is a way to wish someone good luck.", fa:"پای شکستن برای آرزوی موفقیت به کار می‌رود.", ps:"پښه ماتول د بریالیتوب د غوښتلو یوه لاره ده." } }
+];
+var QUIZ_ITEMS = { "idioms-e": IDIOMS_E };
+var QUIZZES = [];
+(function buildQuizzes(){
+  for (var a=0;a<QUIZ_LEVELS.length;a++){
+    for (var b=0;b<QUIZ_TOPICS.length;b++){
+      var lv = QUIZ_LEVELS[a], tp = QUIZ_TOPICS[b];
+      var id = tp.id + "-" + lv.id;
+      var free = id === "idioms-e";
+      QUIZZES.push({
+        id:id, topic:tp.id, level:lv.id, free:free,
+        title:{ en:tp.en+" · "+lv.en, fa:tp.fa+" · "+lv.fa, ps:tp.ps+" · "+lv.ps },
+        items: QUIZ_ITEMS[id] || []
+      });
+    }
+  }
+})();
+function findQuiz(id){ for (var i=0;i<QUIZZES.length;i++) if (QUIZZES[i].id===id) return QUIZZES[i]; return null; }
+
+/* ---------- Helpers ---------- */
+function lessonKey(n,i){ return "L" + n + "-" + i; }
+function learnedInLesson(n){
+  if (n !== 1) return 0;
+  var c = 0;
+  for (var i=0;i<LESSON1.length;i++) if (S.learned[lessonKey(1,i)]) c++;
+  return c;
+}
+function learnedCount(){ return learnedInLesson(1); }
+function firstUnlearned(){
+  for (var i=0;i<LESSON1.length;i++) if (!S.learned[lessonKey(1,i)]) return i;
+  return 0;
+}
+function trText(item){ return S.lang === "ps" ? item.ps : item.fa; }
+function trExample(e){ return S.lang === "ps" ? e[2] : e[1]; }
+function storyTr(){ return S.lang === "ps" ? STORY_PS : STORY_FA; }
+function optionText(item){ return S.lang === "en" ? item.def : trText(item); }
+function findItem(w){ for (var i=0;i<LESSON1.length;i++) if (LESSON1[i].w === w) return LESSON1[i]; return null; }
+function awardPts(key, pts, msg){
+  if (!S.awarded[key]){
+    S.awarded[key] = true;
+    S.score += pts;
+    if (msg) toast(msg);
+  }
+}
+function markLearned(key){
+  if (S.learned[key]) return;
+  S.learned[key] = true;
+  awardPts(key, 2, null);
+  var dk = dayKey(new Date());
+  S.daily[dk] = (S.daily[dk] || 0) + 1;
+}
+function dayKey(d){ return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate(); }
+/* Week runs Saturday to Friday. */
+function weekDays(){
+  var now = new Date();
+  var dow = (now.getDay() + 1) % 7;
+  var todayKey = dayKey(now);
+  var out = [];
+  for (var i=0;i<7;i++){
+    var d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dow + i);
+    var k = dayKey(d);
+    out.push({ key:k, today:k === todayKey });
+  }
+  return out;
+}
+function shuffle(arr){
+  for (var i=arr.length-1;i>0;i--){
+    var j = Math.floor(Math.random() * (i+1));
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+
+/* ---------- Audio ----------
+   playWord(): uses a dedicated recording when one is attached to the word
+   (audioUrlFemale / audioUrlMale); otherwise falls back to the browser's speech voice.
+   Every path fails silently, so no error text is ever shown. */
+function voiceFor(lang){
+  var vs = [];
+  try { vs = window.speechSynthesis.getVoices() || []; } catch (e) { vs = []; }
+  var exact = null, loose = null;
+  for (var i=0;i<vs.length;i++){
+    var vl = String(vs[i].lang || "").replace("_","-");
+    if (!exact && vl === lang) exact = vs[i];
+    if (!loose && vl.indexOf("en") === 0) loose = vs[i];
+  }
+  return exact || loose || null;
+}
+var VOICE = {
+  female: { lang:"en-US", rate:0.95, pitch:1.2 },
+  male:   { lang:"en-US", rate:0.9,  pitch:0.85 },
+  slow:   { lang:"en-US", rate:0.7,  pitch:1 },
+  ex:     { lang:"en-US", rate:0.9,  pitch:1 },
+  story:  { lang:"en-US", rate:0.85, pitch:1 }
+};
+function speak(text, acc, onEnd){
+  try {
+    if (!window.speechSynthesis || typeof window.SpeechSynthesisUtterance === "undefined" || !text){ if (onEnd) onEnd(); return; }
+    window.speechSynthesis.cancel();
+    var cfg = VOICE[acc] || VOICE.ex;
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = cfg.lang; u.rate = cfg.rate; u.pitch = cfg.pitch;
+    var v = voiceFor(cfg.lang);
+    if (v) u.voice = v;
+    u.onend = function(){ if (onEnd) onEnd(); };
+    u.onerror = function(){ if (onEnd) onEnd(); };
+    window.speechSynthesis.speak(u);
+  } catch (e) { if (onEnd) onEnd(); }
+}
+function stopAudio(){
+  try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch (e) {}
+}
+function playWord(w, acc){
+  var item = findItem(w);
+  var url = null;
+  if (acc === "female" || acc === "male"){
+    url = item && (acc === "female" ? item.audioUrlFemale : item.audioUrlMale);
+    if (!url) url = "audio/" + acc + "/" + String(w).toLowerCase() + ".mp3";
+  }
+  if (url){
+    try {
+      var a = new Audio(url);
+      a.onerror = function(){ speak(w, acc); };
+      var p = a.play();
+      if (p && p.catch) p.catch(function(){ speak(w, acc); });
+      return;
+    } catch (e) { /* fall through to speech */ }
+  }
+  speak(w, acc);
+}
+
+/* ---------- Toast (top of screen, never over the study text) ---------- */
+var toastTimer = null;
+function toast(msg){
+  var el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.classList.remove("show"); }, 2000);
+}
+
+/* ---------- Preferences ---------- */
+function applyPrefs(){
+  var h = document.documentElement;
+  h.setAttribute("data-theme", S.theme);
+  h.setAttribute("lang", S.lang === "en" ? "en" : (S.lang === "ps" ? "ps" : "fa"));
+  h.setAttribute("dir", S.lang === "en" ? "ltr" : "rtl");
+}
+
+/* ---------- Renderers: shell ---------- */
+function header(){
+  var langs = ["en","fa","ps"].map(function(l){
+    return '<button class="pill '+(S.lang===l?"on":"")+'" data-act="lang" data-v="'+l+'" aria-pressed="'+(S.lang===l)+'">'+LANGS[l]+'</button>';
+  }).join("");
+  return '<header class="top glass">'
+    + '<div class="brand"><b>NOA</b><span class="sep"></span><span>Vocabulary Hub</span></div>'
+    + '<div class="langs" role="group" aria-label="Language">'+langs+'</div>'
+    + '</header>';
+}
+function tabbar(){
+  var t = T();
+  var tabs = [["home",IC.home],["quizzes",IC.quiz],["activity",IC.stats],["profile",IC.user]];
+  return '<nav class="tabbar glass" role="tablist" aria-label="Main">'
+    + tabs.map(function(p){
+        var k = p[0];
+        return '<button class="tab '+(R.tab===k?"on":"")+'" role="tab" aria-selected="'+(R.tab===k)+'" data-act="tab" data-v="'+k+'">'+p[1]+'<span>'+esc(t[k])+'</span></button>';
+      }).join("")
+    + '</nav>';
+}
+
+/* ---------- Renderers: Home (tab 1) ---------- */
+function homePage(){
+  var t = T();
+  var pct = Math.round(learnedCount() / 504 * 100);
+  var open = R.heroOpen !== false;
+  var html = open
+    ? '<section class="card"><div class="hero-head"><div class="hello">'+esc(t.greet(displayName()))+'</div><button class="chev" data-act="toggle-hero" aria-label="'+esc(t.collapse)+'" aria-expanded="true">'+IC.chevUp+'</button></div>'
+      + '<div class="row" style="border:0;padding:0 0 8px"><span class="muted">'+esc(t.progress)+'</span><b>'+pct+'%</b></div>'
+      + '<div class="bar" role="progressbar" aria-valuenow="'+pct+'" aria-valuemin="0" aria-valuemax="100"><i style="width:'+pct+'%"></i></div>'
+      + '<button class="btn" data-act="start">'+esc(t.start)+'</button></section>'
+    : '<section class="card" style="padding:12px 16px"><div class="hero-mini"><b>'+esc(t.greet(displayName()))+'</b><div class="bar"><i style="width:'+pct+'%"></i></div><span class="pct">'+pct+'%</span><button class="chev" data-act="toggle-hero" aria-label="'+esc(t.expand)+'" aria-expanded="false">'+IC.chevDown+'</button></div></section>';
+  html += '<section class="card review" data-act="review" role="button" tabindex="0"><div class="ico">'+IC.review+'</div><div><b>'+esc(t.review)+'</b><span class="muted">'+esc(t.reviewSub)+'</span></div></section>';
+  html += '<h2 class="sec">'+esc(t.books)+'</h2>';
+  BOOKS.forEach(function(b){
+    var meta = b.kind === "levels" ? t.levels(b.levels) : (t.lessonsCount(b.lessons) + " · " + t.perLesson(b.per));
+    html += '<section class="card book" data-act="open-book" data-v="'+b.id+'" role="button" tabindex="0">'
+      + '<div class="badge '+b.cls+'">'+b.badge+'</div>'
+      + '<div style="flex:1;min-width:0"><h3>'+esc(b.title)+'</h3><p>'+esc(meta)+'</p></div>'
+      + '<span class="muted" aria-hidden="true">'+IC.chevron+'</span></section>';
+  });
+  return html;
+}
+function bookPage(bookId){
+  var t = T();
+  var b = bookById(bookId);
+  var head = '<div class="page-head"><button class="icon-btn" data-act="back-home" aria-label="'+esc(t.back)+'">'+IC.back+'</button><h2>'+esc(b.title)+'</h2></div>';
+  var tiles = "";
+  if (b.kind === "levels"){
+    for (var l=1;l<=b.levels;l++){
+      tiles += '<button class="tile" data-act="soon"><span class="dot"></span><b>'+esc(t.level(l))+'</b><small>'+esc(t.soon)+'</small></button>';
+    }
+    return head + '<div class="grid">'+tiles+'</div>';
+  }
+  for (var n=1;n<=b.lessons;n++){
+    if (b.id === "504"){
+      var done = learnedInLesson(n);
+      var light = n === 1 ? (done === 12 ? "green" : (done > 0 ? "amber" : "blue")) : "";
+      tiles += '<button class="tile" data-act="'+(n===1?"open-lesson":"soon")+'" data-n="'+n+'"><span class="dot '+light+'"></span><b>'+esc(t.lessonWord(n))+'</b><small>'+done+' / '+b.per+'</small></button>';
+    } else {
+      tiles += '<button class="tile" data-act="soon"><span class="dot"></span><b>'+esc(t.lessonWord(n))+'</b><small>'+esc(t.soon)+'</small></button>';
+    }
+  }
+  return head + '<div class="grid">'+tiles+'</div>' + (b.id === "504" ? '' : '<p class="note">'+esc(t.soon)+'</p>');
+}
+function lessonPage(n){
+  var t = T();
+  var done = learnedInLesson(n);
+  var pct = Math.round(done / 12 * 100);
+  var head = '<div class="page-head"><button class="icon-btn" data-act="back-book" aria-label="'+esc(t.back)+'">'+IC.back+'</button><h2>'+esc(t.lessonWord(n))+' · 504 Essential Words</h2></div>';
+  var top = '<section class="card">'
+    + '<div class="mascot">'+artHtml(IMG.student, "NOA", true)+'<div style="flex:1;min-width:0"><b style="font-size:17px">'+esc(t.wordsSoFar(done,12))+'</b><div class="bar" style="margin-top:8px"><i style="width:'+pct+'%"></i></div></div></div>'
+    + '<button class="btn" data-act="continue" data-n="'+n+'">'+esc(t.cont)+'</button>'
+    + '<button class="btn ghost" data-act="story">'+esc(t.story)+'</button>'
+    + '</section>';
+  var list = "";
+  for (var i=0;i<LESSON1.length;i++){
+    var item = LESSON1[i];
+    var key = lessonKey(n,i);
+    var learned = !!S.learned[key];
+    var bm = !!S.bookmarks[key];
+    list += '<div class="word-card" data-act="study" data-n="'+n+'" data-i="'+i+'" role="button" tabindex="0">'
+      + '<span class="num">#'+(i+1)+'</span>'
+      + '<div class="wt"><b>'+esc(item.w)+'</b><small dir="'+(S.lang==="en"?"ltr":"rtl")+'">'+esc(optionText(item))+'</small></div>'
+      + (learned ? '<span class="tick">'+IC.check+'</span>' : '')
+      + '<button class="mini" data-act="say" data-acc="female" data-text="'+esc(item.w)+'" aria-label="'+esc(t.femaleLbl)+'">'+IC.speaker+'</button>'
+      + '<button class="mini '+(bm?"on":"")+'" data-act="bm" data-key="'+key+'" aria-label="'+esc(t.bookmark)+'" aria-pressed="'+bm+'">'+(bm?IC.bookmarkOn:IC.bookmark)+'</button>'
+      + '</div>';
+  }
+  return head + top + '<div style="margin-top:14px">'+list+'</div>';
+}
+function studyPage(n,i){
+  var t = T();
+  var item = LESSON1[i];
+  var key = lessonKey(n,i);
+  var bm = !!S.bookmarks[key];
+  var learned = !!S.learned[key];
+  var showTr = S.lang !== "en";
+  var pct = Math.round((i+1)/12*100);
+  var ex = "";
+  for (var k=0;k<item.ex.length;k++){
+    var e = item.ex[k];
+    ex += '<div class="ex">'
+      + '<button class="mini" data-act="say" data-acc="ex" data-text="'+esc(e[0])+'" aria-label="'+esc(t.listen)+'">'+IC.speaker+'</button>'
+      + '<div class="ex-body"><p class="en" dir="ltr">'+esc(e[0])+'</p>'
+      + (showTr ? '<p class="tr" dir="rtl">'+esc(trExample(e))+'</p>' : '')
+      + '</div></div>';
+  }
+  var defBox = '<div class="box"><div class="lbl">'+esc(t.definition)+'</div><p class="def">'+esc(item.def)+'</p>'
+    + (showTr ? '<div class="lbl">'+esc(t.meaning)+'</div><p class="tr" dir="rtl">'+esc(trText(item))+'</p>' : '')
+    + '</div>';
+  return '<div class="study-top">'
+    + '<button class="icon-btn" data-act="ask-exit" aria-label="'+esc(t.close)+'">'+IC.x+'</button>'
+    + '<div class="bar"><i style="width:'+pct+'%"></i></div>'
+    + '<span class="cnt">'+(i+1)+'/12</span>'
+    + '</div>'
+    + '<section class="card scard">'
+    + '<button class="corner '+(learned?"ok":"")+'" data-act="toggle-learn" data-key="'+key+'" aria-pressed="'+learned+'" aria-label="'+esc(t.learnedCount)+'">'+IC.check+'</button>'
+    + artHtml(IMG[item.w], item.w, false)
+    + '<h1 class="word">'+esc(item.w)+'</h1>'
+    + '<div><span class="pos">'+esc(item.pos)+'</span></div>'
+    + '<div class="phon">'+esc(item.ph)+'</div>'
+    + '<div class="audio">'
+    +   '<button class="aud" data-act="say" data-acc="female" data-text="'+esc(item.w)+'">'+IC.female+esc(t.femaleLbl)+'</button>'
+    +   '<button class="aud" data-act="say" data-acc="male" data-text="'+esc(item.w)+'">'+IC.speaker+esc(t.maleLbl)+'</button>'
+    +   '<button class="aud" data-act="say" data-acc="slow" data-text="'+esc(item.w)+'">'+IC.clock+esc(t.slowLbl)+'</button>'
+    + '</div>'
+    + defBox
+    + '<div class="exs"><div class="lbl">'+esc(t.examples)+'</div>'+ex+'</div>'
+    + '</section>'
+    + '<div class="study-actions">'
+    +   '<button class="bm '+(bm?"on":"")+'" data-act="bm" data-key="'+key+'" aria-pressed="'+bm+'">'+(bm?IC.bookmarkOn:IC.bookmark)+esc(t.bookmark)+'</button>'
+    +   '<button class="rep" data-act="report" aria-label="'+esc(t.report)+'">'+IC.flag+'<span>'+esc(t.reportShort)+'</span></button>'
+    +   '<button class="btn" data-act="next" data-n="'+n+'" data-i="'+i+'">'+esc(i<11 ? t.next : t.finish)+'</button>'
+    + '</div>';
+}
+function storyPage(){
+  var t = T();
+  var showTr = S.lang !== "en";
+  var plain = STORY_EN.replace(/\{|\}/g,"");
+  var marked = esc(STORY_EN).replace(/\{([^}]+)\}/g, '<mark class="kw">$1</mark>');
+  return '<div class="page-head"><button class="icon-btn" data-act="back-lesson" data-n="1" aria-label="'+esc(t.back)+'">'+IC.back+'</button><h2>'+esc(t.story)+'</h2></div>'
+    + '<section class="card story">'
+    + '<div class="story-tools">'
+    +   '<button class="btn sm ghost" data-act="story-play" data-text="'+esc(plain)+'">'+(R.playing?IC.stop:IC.play)+esc(R.playing?t.stopStory:t.playStory)+'</button>'
+    +   (showTr ? '<button class="btn sm ghost" data-act="story-tr">'+esc(t.translation)+'</button>' : '')
+    + '</div>'
+    + '<p class="story-en" dir="ltr">'+marked+'</p>'
+    + (showTr && R.storyTr ? '<p class="story-tr" dir="rtl">'+esc(storyTr())+'</p>' : '')
+    + '</section>'
+    + '<button class="btn" data-act="finish-lesson">'+esc(t.finishBonus)+'</button>';
+}
+
+/* ---------- Renderers: Home review quiz (4 options, wrong answers return to queue) ---------- */
+function questionFor(idx, retry){
+  var others = [];
+  for (var j=0;j<LESSON1.length;j++) if (j !== idx) others.push(j);
+  shuffle(others);
+  var choices = [idx].concat(others.slice(0,3));
+  shuffle(choices);
+  return {
+    idx: idx,
+    retry: !!retry,
+    options: choices.map(function(c){ return optionText(LESSON1[c]); }),
+    correct: choices.indexOf(idx),
+    answered: null
+  };
+}
+function buildQuiz(){
+  var pool = [];
+  for (var i=0;i<LESSON1.length;i++){
+    if (S.learned[lessonKey(1,i)] || S.bookmarks[lessonKey(1,i)]) pool.push(i);
+  }
+  if (!pool.length) return null;
+  shuffle(pool);
+  var queue = pool.map(function(idx){ return questionFor(idx, false); });
+  return { queue:queue, pos:0, total:pool.length, solved:0, firstTry:0, wrong:0, done:false };
+}
+function quizPage(){
+  var t = T();
+  var q = R.quiz;
+  if (!q) return homePage();
+  if (q.done) return quizEnd();
+  var cur = q.queue[q.pos];
+  var item = LESSON1[cur.idx];
+  var pct = Math.round(q.solved / q.total * 100);
+  var opts = cur.options.map(function(o,k){
+    var cls = "";
+    if (cur.answered !== null){
+      if (k === cur.correct) cls = "right";
+      else if (k === cur.answered) cls = "wrong";
+    }
+    return '<button class="opt '+cls+'" data-act="quiz-ans" data-v="'+k+'" '+(cur.answered!==null?'disabled':'')+'>'+esc(o)+'</button>';
+  }).join("");
+  return '<div class="study-top">'
+    + '<button class="icon-btn" data-act="back-home" aria-label="'+esc(t.back)+'">'+IC.x+'</button>'
+    + '<div class="bar"><i style="width:'+pct+'%"></i></div>'
+    + '<span class="cnt">'+q.solved+'/'+q.total+'</span>'
+    + '</div>'
+    + '<section class="card scard">'
+    + '<div class="lbl">'+esc(t.quizTitle)+'</div>'
+    + '<h1 class="quiz-word">'+esc(item.w)+'</h1>'
+    + '<div><span class="pos">'+esc(item.pos)+'</span></div>'
+    + '<div style="margin-top:8px">'+opts+'</div>'
+    + '</section>'
+    + (cur.answered !== null ? '<button class="btn" data-act="quiz-next">'+esc(q.pos+1 < q.queue.length ? t.nextQ : t.seeResult)+'</button>' : '');
+}
+function quizEnd(){
+  var t = T();
+  var q = R.quiz;
+  return '<section class="card empty"><div class="art sm" style="margin:0 auto 8px"><img src="'+esc(IMG.medal)+'" alt="" data-fb="★" loading="lazy"></div>'
+    + '<h2 style="font-size:20px;margin-top:8px">'+esc(t.quizDone)+'</h2>'
+    + '<p class="muted" style="margin-top:6px">'+esc(t.quizScore(q.firstTry, q.total, q.wrong))+'</p>'
+    + '<button class="btn" data-act="quiz-restart">'+esc(t.quizAgain)+'</button>'
+    + '<button class="btn ghost" data-act="back-home">'+esc(t.back)+'</button>'
+    + '</section>';
+}
+
+/* ---------- Renderers: Quizzes tab (tab 2) ---------- */
+function quizRow(q){
+  var t = T();
+  var locked = !q.free;
+  return '<button class="qrow" data-act="'+(locked?"vip":"quiz-open")+'" data-v="'+q.id+'">'
+    + '<div class="wt"><b>'+esc(L(q.title))+'</b><small>'+esc(t.quizCount(4))+'</small></div>'
+    + (locked ? '<span class="crown" aria-label="'+esc(t.vipTag)+'">'+IC.crown+'</span>' : '<span class="tagf">'+esc(t.freeTag)+'</span>')
+    + '</button>';
+}
+function quizCenter(){
+  var t = T();
+  var topics = QUIZ_TOPICS.map(function(tp){
+    var hasFree = QUIZZES.some(function(q){ return q.topic === tp.id && q.free; });
+    return '<button class="tcard" data-act="topic" data-v="'+tp.id+'">'
+      + '<span class="ico">'+IC.quiz+'</span>'
+      + '<b>'+esc(L(tp))+'</b>'
+      + '<small>'+esc(hasFree ? t.freeTag : t.vipTag)+'</small></button>';
+  }).join("");
+  var levels = QUIZ_LEVELS.map(function(lv){
+    var rows = QUIZZES.filter(function(q){ return q.level === lv.id; }).map(quizRow).join("");
+    return '<h2 class="sec">'+esc(L(lv))+'</h2>'+rows;
+  }).join("");
+  return '<h2 class="sec">'+esc(t.topicsSec)+'</h2><div class="topics">'+topics+'</div>'
+    + levels;
+}
+function quizRunPage(){
+  var t = T();
+  var r = R.qrun;
+  var q = findQuiz(r.id);
+  if (!q) { R.qrun = null; return quizCenter(); }
+  if (r.done) return quizResultPage(q);
+  var it = q.items[r.pos];
+  var total = q.items.length;
+  var pct = Math.round(r.pos / total * 100);
+  var opts = it.opts.map(function(o,k){
+    var cls = "";
+    if (r.sel !== null){
+      if (k === it.c) cls = "right";
+      else if (k === r.sel) cls = "wrong";
+    }
+    return '<button class="opt '+cls+'" data-act="qopt" data-v="'+k+'" '+(r.sel!==null?'disabled':'')+'>'+esc(o)+'</button>';
+  }).join("");
+  var feedback = "";
+  if (r.sel !== null){
+    var ok = r.sel === it.c;
+    feedback = '<div class="box"><b style="color:'+(ok?'#16a34a':'#dc2626')+'">'+esc(ok?t.correct:t.wrong)+'</b>'
+      + (ok && r.gain ? ' <span class="muted">'+esc(t.pts(5))+'</span>' : '')
+      + '<p class="tr" dir="ltr" style="text-align:start">'+esc(it.ex.en)+'</p>'
+      + (S.lang !== "en" ? '<p class="tr" dir="rtl">'+esc(L(it.ex))+'</p>' : '')
+      + '</div>'
+      + '<button class="btn" data-act="qnext">'+esc(r.pos+1 < total ? t.nextQ : t.seeResult)+'</button>';
+  }
+  return '<div class="study-top">'
+    + '<button class="icon-btn" data-act="quiz-exit" aria-label="'+esc(t.close)+'">'+IC.x+'</button>'
+    + '<div class="bar"><i style="width:'+pct+'%"></i></div>'
+    + '<span class="cnt">'+(r.pos+1)+'/'+total+'</span>'
+    + '</div>'
+    + '<section class="card scard">'
+    + '<div class="lbl">'+esc(t.question)+'</div>'
+    + '<p class="quiz-word" dir="ltr" style="font-size:20px;line-height:1.5">'+esc(it.q)+'</p>'
+    + '<div style="margin-top:8px">'+opts+'</div>'
+    + '</section>'
+    + feedback;
+}
+function quizResultPage(q){
+  var t = T();
+  var r = R.qrun;
+  return '<section class="card empty"><div class="art sm" style="margin:0 auto 8px"><img src="'+esc(IMG.medal)+'" alt="" data-fb="★" loading="lazy"></div>'
+    + '<h2 style="font-size:20px;margin-top:8px">'+esc(t.quizDone)+'</h2>'
+    + '<p class="muted" style="margin-top:6px">'+esc(t.quizResult(r.score, q.items.length))+'</p>'
+    + '<button class="btn" data-act="quiz-restart-run">'+esc(t.quizAgain)+'</button>'
+    + '<button class="btn ghost" data-act="quiz-exit">'+esc(t.back)+'</button>'
+    + '</section>';
+}
+
+/* ---------- Renderers: Activity tab (tab 3) ---------- */
+function activityPage(){
+  var t = T();
+  var wk = weekDays();
+  var vals = wk.map(function(d){ return S.daily[d.key] || 0; });
+  var max = 1;
+  for (var m=0;m<vals.length;m++) if (vals[m] > max) max = vals[m];
+  var bars = wk.map(function(d,i){
+    var v = vals[i];
+    var h = v ? Math.max(8, Math.round(v / max * 120)) : 4;
+    return '<div class="col '+(d.today?"today":"")+'"><em>'+(v?v:"")+'</em><i style="height:'+h+'px"></i><span>'+esc(DAYS[S.lang][i])+'</span></div>';
+  }).join("");
+  var stat = function(label, value){
+    return '<div class="stat"><b>'+esc(value)+'</b><small>'+esc(label)+'</small></div>';
+  };
+  return '<h2 class="sec">'+esc(t.activeWeek)+'</h2>'
+    + '<section class="card"><div class="chart" role="img" aria-label="'+esc(t.activeWeek)+'">'+bars+'</div></section>'
+    + '<h2 class="sec">'+esc(t.activityTitle)+'</h2>'
+    + '<div class="stat-grid">'
+    +   stat(t.statLessons, (S.done1 ? 1 : 0) + " / 42")
+    +   stat(t.statWords, learnedCount() + " / 504")
+    +   stat(t.statQuizzes, S.quizzesDone)
+    +   stat(t.statScore, S.score)
+    + '</div>';
+}
+
+/* ---------- Renderers: Profile tab (tab 4) ---------- */
+function profilePage(){
+  var t = T();
+  var marks = "";
+  for (var i=0;i<LESSON1.length;i++){
+    var key = lessonKey(1,i);
+    if (!S.bookmarks[key]) continue;
+    var item = LESSON1[i];
+    marks += '<div class="row">'
+      + '<button data-act="bm-open" data-i="'+i+'" style="flex:1;min-width:0;text-align:start;direction:ltr"><b>'+esc(item.w)+'</b><br><span class="muted">'+esc(optionText(item))+'</span></button>'
+      + '<button class="btn sm ghost" data-act="bm" data-key="'+key+'">'+esc(t.remove)+'</button>'
+      + '</div>';
+  }
+  if (!marks) marks = '<p class="muted" style="padding:6px 0">'+esc(t.noBookmarks)+'</p>';
+  return '<h2 class="sec">'+esc(t.profile)+'</h2>'
+    + '<section class="card">'
+    + '<div class="row" style="display:block"><span class="muted">'+esc(t.nameLabel)+'</span>'
+    +   '<div class="field"><input id="nameIn" type="text" maxlength="40" value="'+esc(S.name)+'" placeholder="'+esc(DEFAULT_NAME[S.lang])+'" aria-label="'+esc(t.nameLabel)+'">'
+    +   '<button class="btn sm" data-act="save-name" style="margin-top:0">'+esc(t.save)+'</button></div></div>'
+    + '<div class="row"><span class="muted">'+esc(t.userId)+'</span><b dir="ltr">'+esc(S.id)+'</b></div>'
+    + '<div class="row"><span class="muted">'+esc(t.totalScore)+'</span><b>'+S.score+'</b></div>'
+    + '<div class="row"><span class="muted">'+esc(t.themeLabel)+'</span>'
+    +   '<button class="switch" role="switch" aria-checked="'+(S.theme==="dark")+'" data-act="theme" aria-label="'+esc(t.themeLabel)+'"></button></div>'
+    + '</section>'
+    + '<h2 class="sec">'+esc(t.bookmarksSec)+'</h2>'
+    + '<section class="card">'+marks+'</section>'
+    + '<h2 class="sec">'+esc(t.privacy)+'</h2>'
+    + '<section class="card" style="padding:4px 18px">'
+    +   '<button class="row" data-act="privacy" style="justify-content:space-between;border:0">'
+    +   '<span>'+esc(t.privacy)+'</span>'
+    +   '<span class="muted" aria-hidden="true">'+IC.chevron+'</span></button>'
+    + '</section>';
+}
+
+/* ---------- Modals ---------- */
+function modalHtml(){
+  if (!R.modal) return "";
+  var t = T();
+  if (R.modal === "exit"){
+    return '<div class="scrim" data-act="modal-stay"></div>'
+      + '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mt"><h3 id="mt">'+esc(t.exitTitle)+'</h3><p>'+esc(t.exitMsg)+'</p>'
+      + '<div class="sheet-btns"><button class="btn ghost" data-act="modal-stay">'+esc(t.stay)+'</button><button class="btn danger" data-act="modal-exit">'+esc(t.exit)+'</button></div></div>';
+  }
+  if (R.modal === "report"){
+    var items = t.reportItems.map(function(label,idx){
+      var on = R.reportSel.indexOf(idx) >= 0;
+      return '<button class="check-item" role="checkbox" aria-checked="'+on+'" data-act="rep-toggle" data-v="'+idx+'">'
+        + '<span class="cbox '+(on?"on":"")+'">'+(on?IC.check:"")+'</span><span>'+esc(label)+'</span></button>';
+    }).join("");
+    return '<div class="scrim" data-act="modal-stay"></div>'
+      + '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mt"><h3 id="mt">'+esc(t.reportTitle)+'</h3>'
+      + '<div style="margin-top:8px">'+items+'</div>'
+      + '<div class="sheet-btns"><button class="btn ghost" data-act="modal-stay">'+esc(t.stay)+'</button><button class="btn" data-act="rep-submit">'+esc(t.submit)+'</button></div></div>';
+  }
+  if (R.modal === "vip"){
+    var benefits = [
+      { en:"All quizzes and all levels", fa:"همه آزمون‌ها و همه سطح‌ها", ps:"ټولې ازموینې او ټولې کچې" },
+      { en:"Full 504 and 1100 word books", fa:"کتاب‌های کامل ۵۰۴ و ۱۱۰۰ کلمه", ps:"د ۵۰۴ او ۱۱۰۰ لغاتو بشپړ کتابونه" }
+    ];
+    var bl = benefits.map(function(b){
+      return '<li>'+IC.check+'<span>'+esc(L(b))+'</span></li>';
+    }).join("");
+    return '<div class="scrim" data-act="modal-stay"></div>'
+      + '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mt">'
+      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span class="crown" style="width:36px;height:36px;border-radius:12px;background:var(--gold-soft);display:grid;place-items:center">'+IC.crown+'</span><h3 id="mt" style="margin:0">'+esc(t.vipTitle)+'</h3></div>'
+      + '<p>'+esc(t.vipBody)+'</p>'
+      + '<ul>'+bl+'</ul>'
+      + '<p class="note" style="margin-top:12px;text-align:start">'+esc(t.vipNotice)+'</p>'
+      + '<div class="sheet-btns"><button class="btn ghost" data-act="modal-stay">'+esc(t.close)+'</button><button class="btn" data-act="vip-activate">'+esc(t.vipActivate)+'</button></div></div>';
+  }
+  if (R.modal === "privacy"){
+    return '<div class="scrim" data-act="modal-stay"></div>'
+      + '<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mt"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span class="crown" style="width:36px;height:36px;border-radius:12px;background:var(--soft);color:var(--blue-deep);display:grid;place-items:center">'+IC.shield+'</span><h3 id="mt" style="margin:0">'+esc(t.privacyTitle)+'</h3></div>'
+      + '<ul>'+t.privacyRules.map(function(r){ return '<li>'+IC.check+'<span>'+esc(r)+'</span></li>'; }).join("")+'</ul>'
+      + '<div class="sheet-btns"><button class="btn ghost" data-act="modal-stay">'+esc(t.close)+'</button></div></div>';
+  }
+  return "";
+}
+
+function content(){
+  var t = T();
+  if (R.tab === "home"){
+    if (R.page && R.page.type === "book") return bookPage(R.page.id);
+    if (R.page && R.page.type === "lesson") return lessonPage(R.page.n);
+    if (R.page && R.page.type === "study") return studyPage(R.page.n, R.page.i);
+    if (R.page && R.page.type === "story") return storyPage();
+    if (R.page && R.page.type === "quiz") return quizPage();
+    return homePage();
+  }
+  if (R.tab === "quizzes") return R.qrun ? quizRunPage() : quizCenter();
+  if (R.tab === "activity") return activityPage();
+  return profilePage();
+}
+
+function render(){
+  applyPrefs();
+  var app = document.getElementById("app");
+  app.innerHTML = header() + '<main class="app">' + content() + '</main>' + tabbar() + modalHtml();
+  bindFallbacks();
+}
+
+/* ---------- Actions ---------- */
+function nextWord(n,i){
+  var key = lessonKey(n,i);
+  markLearned(key);
+  saveState();
+  if (i < 11){
+    R.page = { type:"study", n:n, i:i+1 };
+  } else {
+    R.page = { type:"lesson", n:n };
+    toast(T().lessonDone);
+  }
+  render();
+}
+function goTab(k){
+  R = { tab:k, page:null, modal:null, reportSel:[], storyTr:false, playing:false, quiz:null, qrun:null };
+  stopAudio(); render(); window.scrollTo(0,0);
+}
+function startQuiz(id){
+  R.tab = "quizzes";
+  R.qrun = { id:id, pos:0, sel:null, score:0, gain:false, done:false, counted:false };
+  render(); window.scrollTo(0,0);
+}
+
+document.addEventListener("click", function(ev){
+  var el = ev.target && ev.target.closest ? ev.target.closest("[data-act]") : null;
+  if (!el) return;
+  var a = el.getAttribute("data-act");
+  var t = T();
+  var n1 = parseInt(el.getAttribute("data-n"),10);
+  var i1 = parseInt(el.getAttribute("data-i"),10);
+
+  if (a === "lang"){ S.lang = el.getAttribute("data-v"); saveState(); render(); return; }
+  if (a === "theme"){ S.theme = S.theme === "dark" ? "light" : "dark"; saveState(); render(); return; }
+  if (a === "tab"){ goTab(el.getAttribute("data-v")); return; }
+  if (a === "toggle-hero"){ R.heroOpen = R.heroOpen === false; render(); return; }
+  if (a === "start"){ R.tab = "home"; R.page = { type:"lesson", n:1 }; render(); window.scrollTo(0,0); return; }
+  if (a === "open-book"){ R.tab = "home"; R.page = { type:"book", id:el.getAttribute("data-v") }; render(); window.scrollTo(0,0); return; }
+  if (a === "open-lesson"){ R.page = { type:"lesson", n:n1 }; render(); window.scrollTo(0,0); return; }
+  if (a === "back-home"){ R.page = null; R.quiz = null; stopAudio(); render(); return; }
+  if (a === "back-book"){ R.page = { type:"book", id:"504" }; render(); return; }
+  if (a === "back-lesson"){ R.page = { type:"lesson", n:n1 }; R.playing = false; stopAudio(); render(); window.scrollTo(0,0); return; }
+  if (a === "continue"){ R.page = { type:"study", n:n1, i:firstUnlearned() }; render(); window.scrollTo(0,0); return; }
+  if (a === "study"){ R.page = { type:"study", n:n1, i:i1 }; render(); window.scrollTo(0,0); return; }
+  if (a === "bm-open"){ R = { tab:"home", page:{ type:"study", n:1, i:i1 }, modal:null, reportSel:[], storyTr:false, playing:false, quiz:null, qrun:null }; render(); window.scrollTo(0,0); return; }
+  if (a === "next"){ nextWord(n1, i1); window.scrollTo(0,0); return; }
+  if (a === "toggle-learn"){
+    var lk = el.getAttribute("data-key");
+    if (S.learned[lk]){ delete S.learned[lk]; }
+    else { markLearned(lk); }
+    saveState(); render(); return;
+  }
+  if (a === "say"){
+    var acc = el.getAttribute("data-acc");
+    var txt = el.getAttribute("data-text");
+    if (acc === "female" || acc === "male") playWord(txt, acc);
+    else if (acc === "slow") speak(txt, "slow");
+    else speak(txt, "ex");
+    return;
+  }
+  if (a === "bm"){
+    var key = el.getAttribute("data-key");
+    if (S.bookmarks[key]){ delete S.bookmarks[key]; toast(t.bmOff); }
+    else { S.bookmarks[key] = true; toast(t.bmOn); }
+    saveState(); render(); return;
+  }
+  if (a === "review"){
+    var q = buildQuiz();
+    if (!q){ toast(t.quizEmpty); return; }
+    R = { tab:"home", page:{ type:"quiz" }, quiz:q, qrun:null, modal:null, reportSel:[], storyTr:false, playing:false };
+    render(); window.scrollTo(0,0); return;
+  }
+  if (a === "quiz-ans"){
+    var qz = R.quiz;
+    if (!qz || qz.done) return;
+    var cur = qz.queue[qz.pos];
+    if (cur.answered !== null) return;
+    var v = parseInt(el.getAttribute("data-v"),10);
+    cur.answered = v;
+    if (v === cur.correct){
+      qz.solved++;
+      if (!cur.retry) qz.firstTry++;
+    } else {
+      qz.wrong++;
+      qz.queue.push(questionFor(cur.idx, true));
+    }
+    render(); return;
+  }
+  if (a === "quiz-next"){
+    if (!R.quiz) return;
+    R.quiz.pos++;
+    if (R.quiz.pos >= R.quiz.queue.length) R.quiz.done = true;
+    render(); window.scrollTo(0,0); return;
+  }
+  if (a === "quiz-restart"){
+    var nq = buildQuiz();
+    if (!nq){ R.page = null; R.quiz = null; toast(t.quizEmpty); render(); return; }
+    R.quiz = nq; render(); window.scrollTo(0,0); return;
+  }
+
+  /* Quizzes tab */
+  if (a === "topic"){
+    var tid = el.getAttribute("data-v");
+    var free = null;
+    for (var qi=0;qi<QUIZZES.length;qi++){
+      if (QUIZZES[qi].topic === tid && QUIZZES[qi].free){ free = QUIZZES[qi]; break; }
+    }
+    if (free) startQuiz(free.id); else { R.modal = "vip"; render(); }
+    return;
+  }
+  if (a === "quiz-open"){ startQuiz(el.getAttribute("data-v")); return; }
+  if (a === "quiz-restart-run"){ if (R.qrun){ startQuiz(R.qrun.id); } return; }
+  if (a === "quiz-exit"){ R.qrun = null; R.tab = "quizzes"; render(); window.scrollTo(0,0); return; }
+  if (a === "qopt"){
+    var rr = R.qrun;
+    if (!rr || rr.sel !== null || rr.done) return;
+    var qq = findQuiz(rr.id);
+    var itq = qq.items[rr.pos];
+    var pick = parseInt(el.getAttribute("data-v"),10);
+    rr.sel = pick;
+    if (pick === itq.c){
+      rr.score++;
+      var gkey = "Q-" + rr.id + "-" + rr.pos;
+      if (!S.awarded[gkey]){ rr.gain = true; awardPts(gkey, 5, null); saveState(); }
+      else { rr.gain = false; }
+    } else { rr.gain = false; }
+    render(); return;
+  }
+  if (a === "qnext"){
+    var rn = R.qrun;
+    if (!rn) return;
+    var qn = findQuiz(rn.id);
+    rn.pos++;
+    rn.gain = false;
+    if (rn.pos >= qn.items.length){
+      rn.done = true;
+      if (!rn.counted){ rn.counted = true; S.quizzesDone++; saveState(); }
+    } else {
+      rn.sel = null;
+    }
+    render(); window.scrollTo(0,0); return;
+  }
+
+  if (a === "story"){ R.page = { type:"story", n:1 }; R.playing = false; render(); window.scrollTo(0,0); return; }
+  if (a === "story-play"){
+    if (R.playing){ stopAudio(); R.playing = false; render(); return; }
+    R.playing = true; render();
+    speak(el.getAttribute("data-text"), "story", function(){ R.playing = false; if (R.page && R.page.type === "story") render(); });
+    return;
+  }
+  if (a === "story-tr"){ R.storyTr = !R.storyTr; render(); return; }
+  if (a === "finish-lesson"){
+    if (learnedInLesson(1) < 12){ toast(t.needAll); return; }
+    if (S.done1){ toast(t.alreadyDone); }
+    else { S.done1 = true; S.score += 20; saveState(); toast(t.bonusGot); }
+    R.page = { type:"lesson", n:1 }; render(); window.scrollTo(0,0); return;
+  }
+  if (a === "ask-exit"){ R.modal = "exit"; render(); return; }
+  if (a === "modal-stay"){ R.modal = null; render(); return; }
+  if (a === "modal-exit"){ stopAudio(); R.modal = null; R.page = { type:"lesson", n:1 }; render(); window.scrollTo(0,0); return; }
+  if (a === "report"){ R.modal = "report"; R.reportSel = []; render(); return; }
+  if (a === "rep-toggle"){
+    var rv = parseInt(el.getAttribute("data-v"),10);
+    var pos = R.reportSel.indexOf(rv);
+    if (pos >= 0) R.reportSel.splice(pos,1); else R.reportSel.push(rv);
+    render(); return;
+  }
+  if (a === "rep-submit"){
+    if (!R.reportSel.length){ toast(t.reportNone); return; }
+    R.modal = null; R.reportSel = []; toast(t.reportOk); render(); return;
+  }
+  if (a === "save-name"){
+    var inp = document.getElementById("nameIn");
+    S.name = inp ? inp.value.trim() : S.name;
+    saveState(); toast(t.nameSaved); render(); return;
+  }
+  if (a === "vip"){ R.modal = "vip"; render(); return; }
+  if (a === "vip-activate"){ toast(t.vipSoon); return; }
+  if (a === "privacy"){ R.modal = "privacy"; render(); return; }
+  if (a === "soon"){ toast(t.soonToast); return; }
+});
+
+document.addEventListener("keydown", function(ev){
+  if (ev.key !== "Enter" && ev.key !== " ") return;
+  var el = ev.target;
+  if (el && el.getAttribute && el.getAttribute("role") === "button" && el.hasAttribute("data-act") && el.tagName !== "INPUT"){
+    ev.preventDefault(); el.click();
+  }
+});
+
+/* ---------- Init ---------- */
+S = loadState();
+saveState();
+render();
+})();
+</script>
+</body>
+</html>
